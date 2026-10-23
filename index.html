@@ -54,6 +54,11 @@
 </head>
 <body class="text-slate-800 relative select-none">
 
+    <!-- HIDDEN AUDIO ELEMENT -->
+    <audio id="bg-audio" loop>
+        <source src="speechless.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- WELCOME / AUDIO UNLOCK OVERLAY -->
     <div id="welcome-overlay" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4 transition-opacity duration-700">
         <div class="glass-card max-w-md w-full p-8 rounded-3xl shadow-2xl text-center border border-rose-100 relative z-10">
@@ -133,17 +138,6 @@
                     </div>
                 </div>
             </section>
-
-            <!-- Spotify Player Section -->
-            <section class="glass-card rounded-3xl p-6 md:p-8 shadow-lg flex flex-col items-center justify-center gap-4">
-                <div class="text-center">
-                    <h4 class="romantic-font text-3xl text-rose-800 mb-1">Our Special Song</h4>
-                    <p class="text-sm text-slate-500 mb-2">Playing straight from Spotify</p>
-                </div>
-                <div class="w-full max-w-md" id="spotify-container">
-                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3GJ4hzg4lrGwU51Y3VARbF?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>
-            </section>
         </main>
 
         <!-- Footer -->
@@ -185,15 +179,13 @@
     </div>
 
     <script>
-        // Unlock Experience / Fade Overlay & Autoplay Spotify
+        // Unlock Experience / Fade Overlay & Play Direct MP3
         function unlockExperience() {
+            const audio = document.getElementById('bg-audio');
+            audio.play().catch(error => console.log("Audio play blocked:", error));
+
             const overlay = document.getElementById('welcome-overlay');
             overlay.classList.add('opacity-0');
-            
-            // Reload the Spotify iframe with autoplay enabled the moment she taps
-            const spotifyContainer = document.getElementById('spotify-container');
-            spotifyContainer.innerHTML = `<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3GJ4hzg4lrGwU51Y3VARbF?utm_source=generator&autoplay=1" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
-
             setTimeout(() => {
                 overlay.style.display = 'none';
             }, 700);

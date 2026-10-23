@@ -54,21 +54,28 @@
 </head>
 <body class="text-slate-800 relative select-none">
 
-    <!-- HIDDEN AUDIO ELEMENT -->
-    <audio id="bg-audio" loop>
-        <source src="speechless.mp3" type="audio/mpeg">
-    </audio>
-
     <!-- WELCOME / AUDIO UNLOCK OVERLAY -->
     <div id="welcome-overlay" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4 transition-opacity duration-700">
-        <div class="glass-card max-w-md w-full p-8 rounded-3xl shadow-2xl text-center border border-rose-100 relative z-10">
-            <div class="w-16 h-16 bg-rose-100 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl shadow-inner">
+        <div class="glass-card max-w-md w-full p-8 rounded-3xl shadow-2xl text-center border border-rose-100 relative z-10 space-y-6">
+            <div class="w-16 h-16 bg-rose-100 text-rose-500 rounded-full flex items-center justify-center mx-auto text-2xl shadow-inner">
                 ❤️
             </div>
-            <h1 class="romantic-font text-4xl font-bold text-rose-800 mb-3">For My Wonderful Wife</h1>
-            <p class="text-slate-600 text-sm mb-8 leading-relaxed">I built this little corner of the internet just for you. Tap below to open our page and play our song.</p>
-            <button onclick="unlockExperience()" class="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white font-medium rounded-2xl shadow-lg shadow-rose-600/30 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2 group">
-                <span>Open With All My Love</span>
+            <div>
+                <h1 class="romantic-font text-4xl font-bold text-rose-800 mb-2">For My Wonderful Wife</h1>
+                <p class="text-slate-600 text-sm leading-relaxed">I built this little corner of the internet just for you. Tap below to open our page and play our song.</p>
+            </div>
+            
+            <!-- Standard HTML Audio Player with visible controls so it's guaranteed to work on all phones -->
+            <div class="bg-rose-50/80 p-4 rounded-2xl border border-rose-200">
+                <p class="text-xs font-semibold text-rose-700 uppercase tracking-wider mb-2">Press Play For Our Song</p>
+                <audio id="bg-audio" controls loop class="w-full">
+                    <source src="speechless.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+
+            <button onclick="unlockExperience()" class="w-full py-3.5 bg-rose-600 hover:bg-rose-700 text-white font-medium rounded-2xl shadow-lg shadow-rose-600/30 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2 group">
+                <span>Enter Our Page</span>
                 <span class="group-hover:translate-x-1 transition-transform">✨</span>
             </button>
         </div>
@@ -179,7 +186,7 @@
     </div>
 
     <script>
-        // Unlock Experience / Fade Overlay & Play Direct MP3
+        // Unlock Experience / Fade Overlay & Play Audio
         function unlockExperience() {
             const audio = document.getElementById('bg-audio');
             audio.play().catch(error => console.log("Audio play blocked:", error));
@@ -214,6 +221,7 @@
             heart.style.animationDuration = duration + 's';
             
             const redHues = ['#dc2626', '#ef4444', '#b91c1c', '#e11d48', '#f43f5e', '#ff1744'];
+            heart.style.filter = 'drop-shadow(0 4px 8px rgba(220, 38, 38, 0.3))';
             heart.style.color = redHues[Math.floor(Math.random() * redHues.length)];
             
             heart.innerHTML = '<i class="fa-solid fa-heart"></i>';
@@ -241,7 +249,7 @@
         function saveMemory() {
             const imgUrl = document.getElementById('modal-img-url').value.trim() || 'https://placehold.co/400x400/ffe4e6/be123c?text=Love';
             const title = document.getElementById('modal-title').value.trim() || 'Special Memory';
-            const desc = document.getElementById('modal-desc').value.trim() || 'Forever in my heart.';
+            const desc = document.getElementById('modal-desc').value.trim() === '' ? 'Forever in my heart.' : document.getElementById('modal-desc').value.trim();
 
             const grid = document.getElementById('memory-grid');
             const card = document.createElement('div');

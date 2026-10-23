@@ -54,6 +54,21 @@
 </head>
 <body class="text-slate-800 relative select-none">
 
+    <!-- WELCOME / AUDIO UNLOCK OVERLAY -->
+    <div id="welcome-overlay" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4 transition-opacity duration-700">
+        <div class="glass-card max-w-md w-full p-8 rounded-3xl shadow-2xl text-center border border-rose-100 relative z-10">
+            <div class="w-16 h-16 bg-rose-100 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl shadow-inner">
+                ❤️
+            </div>
+            <h1 class="romantic-font text-4xl font-bold text-rose-800 mb-3">For My Wonderful Wife</h1>
+            <p class="text-slate-600 text-sm mb-8 leading-relaxed">I built this little corner of the internet just for you. Tap below to open our page and play our song.</p>
+            <button onclick="unlockExperience()" class="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white font-medium rounded-2xl shadow-lg shadow-rose-600/30 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2 group">
+                <span>Open With All My Love</span>
+                <span class="group-hover:translate-x-1 transition-transform">✨</span>
+            </button>
+        </div>
+    </div>
+
     <!-- Falling Hearts Container -->
     <div id="hearts-container" class="fixed inset-0 overflow-hidden pointer-events-none z-1"></div>
 
@@ -126,7 +141,7 @@
                     <p class="text-sm text-slate-500 mb-2">Playing straight from Spotify</p>
                 </div>
                 <div class="w-full max-w-md">
-                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3GJ4hzg4lrGwU51Y3VARbF?utm_source=generator&si=cbd2dceba7424518" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/24Yi9hE78yPEbZ4kxyoXAI?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             </section>
         </main>
@@ -170,6 +185,15 @@
     </div>
 
     <script>
+        // Unlock Experience / Fade Overlay
+        function unlockExperience() {
+            const overlay = document.getElementById('welcome-overlay');
+            overlay.classList.add('opacity-0');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 700);
+        }
+
         // Falling Heart Rain Generator
         function createRainHeart() {
             const container = document.getElementById('hearts-container');
@@ -226,7 +250,7 @@
             const card = document.createElement('div');
             card.className = "glass-card p-4 pb-6 rounded-2xl shadow-lg hover:-translate-y-1 transition-all duration-300 group";
             card.innerHTML = `
-                <div class="bg-slate-100 rounded-xl overflow-hidden aspect-square mb-4 relative shadow-inner flex items-center justify-center">
+                <div class="bg-slate-100 rounded-xl overflow-hidden aspect-square mb-4 relative shadow-inner">
                     <img src="${imgUrl}" alt="Memory" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x400/ffe4e6/be123c?text=Love'">
                 </div>
                 <h4 class="romantic-font text-2xl text-rose-800 text-center">${escapeHtml(title)}</h4>

@@ -10,17 +10,37 @@
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap');
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
         }
         .serif-font {
             font-family: 'Playfair Display', serif;
         }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.6); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+        .floating-heart {
+            position: absolute;
+            animation: floatUp 6s linear infinite;
+            bottom: -10vh;
+        }
     </style>
 </head>
-<body class="bg-rose-50/50 text-slate-800 min-h-screen flex flex-col justify-between selection:bg-rose-200">
+<body class="bg-rose-50/50 text-slate-800 min-h-screen flex flex-col justify-between selection:bg-rose-200 relative">
+
+    <!-- FLOATING HEARTS BACKGROUND CONTAINER -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="floating-heart text-rose-300 text-xl" style="left: 10%; animation-delay: 0s; animation-duration: 7s;">❤️</div>
+        <div class="floating-heart text-pink-300 text-2xl" style="left: 25%; animation-delay: 2s; animation-duration: 9s;">✨</div>
+        <div class="floating-heart text-rose-200 text-lg" style="left: 45%; animation-delay: 1s; animation-duration: 6s;">❤️</div>
+        <div class="floating-heart text-rose-300 text-2xl" style="left: 65%; animation-delay: 3s; animation-duration: 8s;">💖</div>
+        <div class="floating-heart text-pink-200 text-xl" style="left: 85%; animation-delay: 1.5s; animation-duration: 7.5s;">❤️</div>
+    </div>
 
     <!-- WELCOME / AUDIO UNLOCK OVERLAY -->
     <div id="welcome-overlay" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4 transition-opacity duration-700">
-        <div class="bg-white max-w-md w-full p-8 rounded-3xl shadow-2xl text-center border border-rose-100">
+        <div class="bg-white max-w-md w-full p-8 rounded-3xl shadow-2xl text-center border border-rose-100 relative z-10">
             <div class="w-16 h-16 bg-rose-100 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl shadow-inner">
                 ❤️
             </div>
@@ -34,7 +54,7 @@
     </div>
 
     <!-- MAIN CONTAINER -->
-    <div class="max-w-xl mx-auto w-full p-4 sm:p-6 my-auto">
+    <div class="max-w-xl mx-auto w-full p-4 sm:p-6 my-auto relative z-10">
 
         <!-- HEADER CARD -->
         <div class="bg-white rounded-3xl shadow-xl shadow-rose-900/5 p-8 text-center border border-rose-100/60 relative overflow-hidden mb-6">
@@ -95,7 +115,7 @@
     </div>
 
     <!-- FOOTER -->
-    <footer class="text-center py-6 text-xs text-slate-400 font-medium">
+    <footer class="text-center py-6 text-xs text-slate-400 font-medium relative z-10">
         Made with infinite love for my wife • ilovemywifesomuch.com
     </footer>
 

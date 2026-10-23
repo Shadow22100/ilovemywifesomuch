@@ -59,6 +59,11 @@
         <source src="speechless.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- FLOATING MUSIC TOGGLE BUTTON -->
+    <button id="audio-toggle-btn" onclick="toggleAudio()" class="fixed bottom-6 right-6 z-40 hidden w-14 h-14 bg-rose-600 hover:bg-rose-700 text-white rounded-full shadow-lg shadow-rose-600/40 items-center justify-center transition-all duration-300 transform hover:scale-110">
+        <i id="audio-icon" class="fa-solid fa-pause text-lg"></i>
+    </button>
+
     <!-- WELCOME / AUDIO UNLOCK OVERLAY -->
     <div id="welcome-overlay" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4 transition-opacity duration-700">
         <div class="glass-card max-w-md w-full p-8 rounded-3xl shadow-2xl text-center border border-rose-100 relative z-10 space-y-6">
@@ -182,17 +187,34 @@
     </div>
 
     <script>
-        // Unlock Experience / Fade Overlay & Play Audio
+        // Unlock Experience / Fade Overlay, Play Audio, and Show Floating Button
         function unlockExperience() {
             const audio = document.getElementById('bg-audio');
             audio.play().catch(error => console.log("Audio play blocked:", error));
 
+            // Show the floating pause/play button in the corner
+            document.getElementById('audio-toggle-btn').classList.remove('hidden');
+            document.getElementById('audio-toggle-btn').classList.add('flex');
+
             const overlay = document.getElementById('welcome-overlay');
-            overlay.classList.0 = 'opacity-0';
             overlay.style.opacity = '0';
             setTimeout(() => {
                 overlay.style.display = 'none';
             }, 700);
+        }
+
+        // Toggle Audio Play/Pause via Floating Button
+        function toggleAudio() {
+            const audio = document.getElementById('bg-audio');
+            const icon = document.getElementById('audio-icon');
+
+            if (audio.paused) {
+                audio.play();
+                icon.className = "fa-solid fa-pause text-lg";
+            } else {
+                audio.pause();
+                icon.className = "fa-solid fa-play text-lg";
+            }
         }
 
         // Falling Heart Rain Generator
@@ -265,9 +287,9 @@
             closeAddModal();
         }
 
-        function escapeHtml(text) {
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-        }
+    function escapeHtml(text) {
+        return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
     </script>
 </body>
 </html>

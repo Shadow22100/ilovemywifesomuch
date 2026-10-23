@@ -93,10 +93,10 @@
             </div>
             
             <div class="flex items-center gap-3">
-                <!-- Pause/Play Song Button -->
-                <button onclick="toggleAudio()" id="audio-btn" class="flex items-center gap-2 px-4 py-2 rounded-full bg-rose-100 text-rose-700 font-medium hover:bg-rose-200 transition shadow-sm">
-                    <i id="audio-icon" class="fa-solid fa-pause"></i>
-                    <span class="text-sm hidden sm:inline" id="audio-text">Pause Song</span>
+                <!-- Stop Song Button -->
+                <button onclick="stopSong()" class="flex items-center gap-2 px-4 py-2 rounded-full bg-rose-100 text-rose-700 font-medium hover:bg-rose-200 transition shadow-sm">
+                    <i class="fa-solid fa-stop"></i>
+                    <span class="text-sm hidden sm:inline">Stop Song</span>
                 </button>
 
                 <button onclick="openAddModal()" class="flex items-center gap-2 px-4 py-2 rounded-full bg-rose-600 text-white font-medium hover:bg-rose-700 transition shadow-md shadow-rose-600/30">
@@ -200,21 +200,11 @@
             }, 700);
         }
 
-        // Toggle Audio Play/Pause from Header Button
-        function toggleAudio() {
+        // Stop Song Function (Pauses and resets playback to 0)
+        function stopSong() {
             const audio = document.getElementById('bg-audio');
-            const icon = document.getElementById('audio-icon');
-            const text = document.getElementById('audio-text');
-
-            if (audio.paused) {
-                audio.play();
-                icon.className = "fa-solid fa-pause";
-                text.innerText = "Pause Song";
-            } else {
-                audio.pause();
-                icon.className = "fa-solid fa-play";
-                text.innerText = "Play Song";
-            }
+            audio.pause();
+            audio.currentTime = 0;
         }
 
         // Falling Heart Rain Generator
